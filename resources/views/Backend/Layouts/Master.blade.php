@@ -62,6 +62,12 @@
                         </a>
                     </li>
                 </ul>
+                @can('clear-cache')
+                    <button class="btn btn-sm btn-custom" type="button" onclick="clearCache()" style="background: #8304e9;">
+                        <i class="fa-solid fa-retweet"></i>
+                        Clear Cache
+                    </button>
+                @endcan
             </div>
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown">
@@ -249,6 +255,23 @@
 <script src="{{ asset('assets/bundles/jquery-selectric/jquery.selectric.min.js') }}"></script>
 {{--Custom JS File--}}
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script>
+    // Clear Cache Function
+    async function clearCache() {
+        showLoader();
+        // Send Request
+        let res=await axios.get("/SecureDataControls/clear-cache");
+        hideLoader();
+        // Handle Response
+        if(res.status===200 && res.data['status']==='success'){
+            successToast(res.data['message']);
+        }
+        else{
+            // Show Error Message
+            errorToast(res.data['message']);
+        }
+    }
+</script>
 @yield('scripts')
 </body>
 </html>

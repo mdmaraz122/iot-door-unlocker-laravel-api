@@ -1,66 +1,186 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🔐 IoT Based Door Unlocker System Using Laravel REST API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+GitHub Repository: iot-door-unlocker-laravel-api
 
-## About Laravel
+An IoT-based smart door unlocking system built using Laravel REST API and ESP32, allowing secure door control through a web dashboard with IP-based and passkey-based verification.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+🚀 Project Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project allows users to unlock a door remotely using a secure REST API.
+Only one fixed IP address and a secret passkey are allowed to unlock the door, ensuring high security.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The system includes:
 
-## Learning Laravel
+A Laravel-based admin panel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Role & permission management
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Unlock logs & reports
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+ESP32-based IoT hardware control
 
-## Laravel Sponsors
+🛠️ Technologies Used
+Backend
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Laravel (REST API)
 
-### Premium Partners
+PHP
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+MySQL
 
-## Contributing
+Laravel Authentication & Authorization
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+IoT Hardware
 
-## Code of Conduct
+ESP32
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Servo Motor
 
-## Security Vulnerabilities
+Jumper Wires
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Battery (7.4V)
 
-## License
+Charger
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Traditional Door Lock
+
+String mechanism
+
+✨ Features
+🔹 Admin Panel
+
+Dashboard
+
+Door Unlock System
+
+Unlock with Passkey
+
+Works only from one fixed IP address
+
+User Management
+
+Create, Update, Edit, Delete
+
+Role-based access (User & Super Admin)
+
+Role Management
+
+Create, Update, Edit, Delete roles
+
+Assign permissions
+
+Permission Management
+
+Unlock Logs (Reports)
+
+View door unlock history
+
+Filter by individual users
+
+Settings
+
+Secret API Key for verification
+
+Fixed IP Address validation
+
+Door will never unlock if IP or key doesn’t match
+
+Profile Management
+
+Update profile information
+
+Change password
+
+Update passkey
+
+🌐 API Security Flow
+
+ESP32 sends a request to the Laravel API
+
+API verifies:
+
+Secret Passkey
+
+Fixed IP Address
+
+If validation passes:
+
+Door unlock signal is sent
+
+If validation fails:
+
+Door remains locked
+
+🔧 IoT Working Process
+
+ESP32 connects to WiFi
+
+Sends REST API request to Laravel backend
+
+Laravel validates credentials
+
+ESP32 receives response
+
+Servo motor rotates to unlock the door
+
+Unlock activity is stored in the database
+
+📂 Project Structure
+├── app/
+├── database/
+│   ├── migrations/
+│   └── database.sql
+├── routes/
+│   └── api.php
+├── public/
+├── resources/
+├── esp32/
+│   └── esp32_code.ino
+└── README.md
+
+
+📌 Note:
+Database structure and ESP32 source code are available in separate folders.
+
+📊 Unlock Log System
+
+Logs every unlock attempt
+
+Stores:
+
+User
+
+Time & Date
+
+Status
+
+Allows filtering by specific users
+
+🔐 Security Highlights
+
+IP-based door access
+
+Secret API key verification
+
+Role-based permission system
+
+Secure REST API communication
+
+📌 Future Improvements
+
+Mobile app integration
+
+OTP-based unlocking
+
+Face or fingerprint authentication
+
+Real-time notifications
+
+👨‍💻 Author
+
+Md. Maraz
+Backend Developer | Laravel | IoT Enthusiast
+
+⭐ Support
+
+If you find this project useful, don’t forget to star ⭐ the repository!

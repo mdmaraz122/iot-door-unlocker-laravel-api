@@ -97,4 +97,8 @@ Route::group(['prefix' => 'SecureDataControls'], function () {
     Route::post('/passkey/', [UserController::class, 'Passkey']);
     Route::post('/get-user-logs/', [UserController::class, 'UnlockLogs']);
 
+    // clear-cache
+    Route::get('/clear-cache/', [UserController::class, 'ClearCache']);
+
+
 });

@@ -10,6 +10,7 @@ use App\Models\LockLog;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -397,42 +398,49 @@ class UserController extends Controller
             return ResponseHelper::Out('error', $e->getMessage(), null, 500);
         }
     }
-
-
+    // Door Status
     public function doorStatus(Request $request)
     {
         try {
+            // 1. Validate passkey
             $request->validate([
                 'passkey' => 'required',
             ]);
-            // verify the passkey
-            $pass = Setting::where('id', 1)->first()->key;
-            if($request->input('passkey') !== $pass){
+
+            $pass = Setting::where('id', 1)->value('key');
+
+            if ($request->passkey !== $pass) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Invalid passkey'
                 ], 401);
             }
-            // get lock status
+
+            // 2. Get lock
             $lock = Lock::findOrFail(1);
 
-            // Save current action first
-            $currentAction = $lock->action;
-            $time = $lock->updated_at->addSeconds(10);
+            // 3. Calculate time difference (seconds)
+            $diffSeconds = now()->diffInSeconds($lock->updated_at);
 
-            // Auto reset to lock
-            if ($lock->action === 'unlock') {
+            // 4. Default action
+            $action = $lock->action;
+
+            // 5. If action is unlock AND older than 5 seconds → force lock
+            if ($lock->action === 'unlock' && $diffSeconds >= 5) {
                 $lock->action = 'lock';
                 $lock->save();
+
+                $action = 'lock';
             }
-            // return response
+
+            // 6. Return response
             return ResponseHelper::Out(
                 'success',
                 'Lock Status',
                 [
                     'status' => $lock->status,
-                    'action' => $currentAction,
-                    'time' => $time,
+                    'action' => $action,
+                    'age'    => $diffSeconds, // optional (for debugging)
                 ],
                 200
             );
@@ -442,8 +450,20 @@ class UserController extends Controller
         }
     }
 
-
-
+    // Clear Cache
+    public function ClearCache(Request $request)
+    {
+        try {
+            Artisan::call('optimize:clear');
+            Artisan::call('cache:clear');
+            Artisan::call('config:clear');
+            Artisan::call('route:clear');
+            Artisan::call('view:clear');
+            return ResponseHelper::Out('success', 'Cache cleared successfully', null, 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::Out('error', $e->getMessage(), null, 500);
+        }
+    }
 
 
 }
