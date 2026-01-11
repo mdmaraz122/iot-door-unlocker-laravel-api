@@ -1,0 +1,14 @@
+.btn-custom{
+    background: #8304e9;
+    color: white;
+    transition: 0.3s;
+}
+.btn-custom:hover{
+    background: #b057ff !important;
+    color: white!important;
+}
+/*after click effect*/
+.btn-custom:focus{
+    background: #8304e9!important;
+    color: white!important;
+}
