@@ -4,12 +4,12 @@
 #include <ArduinoJson.h>
 
 /* WiFi */
-const char* ssid = "DarkArea";
-const char* password = "Maraz@53334";
+const char* ssid = "your_wifi_name";
+const char* password = "your_wifi_password";
 
 /* API */
-const char* apiUrl  = "https://device.rawitsolutions.com/api/door/status";
-const char* passkey = "%%@$GER_)(";   // must match backend
+const char* apiUrl  = "your_api";
+const char* passkey = "your_api_password";   // must match backend
 
 /* Servo */
 Servo servo;
